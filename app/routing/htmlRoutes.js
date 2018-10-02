@@ -1,15 +1,15 @@
 
-app.get("/survey", function(req, res) {
-    connection.query("SELECT * FROM tasks;", function(err, data) {
-      if (err) throw err;  
-      res.render("index", { tasks: data });
-    });
-  });
+var path = require("path")
 
-app.get("/survey", function(req, res) {
-    connection.query("SELECT * FROM tasks;", function(err, data) {
-      if (err) throw err;  
-      res.render("index", { tasks: data });
+module.exports = function (app) {
+    app.get("/", function (req, res) {
+        return res.sendfile(path.join(__dirname, "/../public/home.html"));
     });
-  });
+    app.get("/survey", function (req, res) {
+        return res.sendfile(path.join(__dirname, "/../public/survey.html"));
+    });
+    app.get("*", function (req, res) {
+        return res.sendfile(path.join(__dirname, "/../public/home.html"));
+    });
+}
 

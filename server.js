@@ -1,7 +1,10 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-
+var path = require("path")
 var app = express();
+
+// require routing files from app folder
+var htmlroute = require(path.join(__dirname, "app/routing/htmlRoutes.js"))
 
 // Set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -16,6 +19,8 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+
+htmlroute(app)
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function() {
     // Log (server-side) when our server has started

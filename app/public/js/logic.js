@@ -12,6 +12,7 @@ $(function () {
     // }
     // Capture the form inputs 
     $("#submit").on("click", function () {
+        event.preventDefault();
         console.log("button clicked")
         // Form validation
         function validateForm() {
@@ -32,7 +33,7 @@ $(function () {
             var userData = {
                 name: $("#name").val(),
                 photo: $("#photo").val(),
-                scores: [$("#Q1").val(), $("#Q2").val(), $("#Q3").val(), $("#Q4").val(), $("#Q5").val(), $("#Q6").val(), $("#Q7").val(), $("#Q8").val(), $("#Q9").val(), $("#Q10").val(),]
+                scores: [parseInt($("#Q1").val()), parseInt($("#Q2").val()), parseInt($("#Q3").val()),parseInt($("#Q4").val()), parseInt($("#Q5").val()), parseInt($("#Q6").val()), parseInt($("#Q7").val()), parseInt($("#Q8").val()), parseInt($("#Q9").val()), parseInt($("#Q10").val())]
             }
 
             // AJAX post the data to the friends API. 
@@ -46,18 +47,18 @@ $(function () {
                     // Show the modal with the best match.
                     $("#resultsModal").modal('toggle');
                     // Clear form 
-                    $("#name").val("");
-                    $("#photo").val("");
-                    $("#Q1").val("");
-                    $("#Q2").val("");
-                    $("#Q3").val("");
-                    $("#Q4").val("");
-                    $("#Q5").val("");
-                    $("#Q6").val("");
-                    $("#Q7").val("");
-                    $("#Q8").val("");
-                    $("#Q9").val("");
-                    $("#Q10").val("");
+                    // $("#name").val("");
+                    // $("#photo").val("");
+                    // $("#Q1").val("");
+                    // $("#Q2").val("");
+                    // $("#Q3").val("");
+                    // $("#Q4").val("");
+                    // $("#Q5").val("");
+                    // $("#Q6").val("");
+                    // $("#Q7").val("");
+                    // $("#Q8").val("");
+                    // $("#Q9").val("");
+                    // $("#Q10").val("");
                 });
         }
         else {

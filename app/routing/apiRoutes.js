@@ -74,7 +74,7 @@ module.exports = function (app) {
 
     app.post("/api/friends", function (req, res) {
 
-        // Store current user scores in array then convert to a single total sum
+        // Store current user scores in array then convert to a single total sumvagra
         let smallest = 1000
         let match = ""
         let curScores = req.body.scores;
@@ -89,42 +89,46 @@ module.exports = function (app) {
             let userName = user.name
             let userPartialScores = userScores.map((num) => { return parseInt(num) })
             let userTotalScore = userPartialScores.reduce((a, b) => { return a + b }, 0)
+
+            // console.log(`${userName}'s score is ${userTotalScore}`)
             // loops through each user and stores whoever has the smallest difference in smallest variable
-            if (userTotalScore < smallest) {
-                userData.indexOf()
-                smallest = userTotalScore
+            console.log(`\n-------------\n${userName}'s difference is ${Math.abs(userTotalScore - currentUserScore)}\n`)
+            var userDifference = Math.abs(userTotalScore - currentUserScore)
+
+            if (userDifference < smallest) {
+                console.log(`${userName} triggered if statement`)
+                smallest = userDifference
                 match = userName
                 pic = user.photo
+                console.log(smallest + match + pic)
             }
 
-        // calcArray.push({
-        //     "name": userName,
-        //     "difference": Math.abs(userTotalScore - currentUserScore)
-        // })
+        })
+        console.log(`You should be best friends with ${match}`)
 
-        // console.log(`\n${userName}'s score is ${userTotalScore}`)
+        // lodash find index method
+        let uIndex = _.findIndex(userData, function (o) { return o.name == match })
+        console.log(uIndex)
+
+        // Push new user to database
+        userData.push(req.body)
+
+        res.send(userData[uIndex])
     })
-    console.log(`You should be best friends with ${match}` )
 
-    // Push new user to database
-    userData.push(req.body)
+    // Find total difference between current user and another user.
+    function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores) {
 
-    res.send(userData[])
-})
+        // Reset the total difference counter each time function called.
+        totalDifference = 0;
 
-// Find total difference between current user and another user.
-function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores) {
+        for (var i = 0; i < currentUserScores.length; i++) {
 
-    // Reset the total difference counter each time function called.
-    totalDifference = 0;
+            totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
+        }
 
-    for (var i = 0; i < currentUserScores.length; i++) {
+        console.log("Final total difference for friend: " + totalDifference);
 
-        totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
-    }
-
-    console.log("Final total difference for friend: " + totalDifference);
-
-    return totalDifference;
-};
+        return totalDifference;
+    };
 }

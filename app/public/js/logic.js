@@ -47,18 +47,18 @@ $(function () {
                     // Show the modal with the best match.
                     $("#resultsModal").modal('toggle');
                     // Clear form 
-                    // $("#name").val("");
-                    // $("#photo").val("");
-                    // $("#Q1").val("");
-                    // $("#Q2").val("");
-                    // $("#Q3").val("");
-                    // $("#Q4").val("");
-                    // $("#Q5").val("");
-                    // $("#Q6").val("");
-                    // $("#Q7").val("");
-                    // $("#Q8").val("");
-                    // $("#Q9").val("");
-                    // $("#Q10").val("");
+                    $("#name").val("");
+                    $("#photo").val("");
+                    $("#Q1").val("");
+                    $("#Q2").val("");
+                    $("#Q3").val("");
+                    $("#Q4").val("");
+                    $("#Q5").val("");
+                    $("#Q6").val("");
+                    $("#Q7").val("");
+                    $("#Q8").val("");
+                    $("#Q9").val("");
+                    $("#Q10").val("");
                 });
         }
         else {

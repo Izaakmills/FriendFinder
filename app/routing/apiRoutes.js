@@ -3,11 +3,11 @@ var userData = require("../data/friends");
 
 module.exports = function (app) {
     app.get("/api/friends", function (req, res) {
+        console.log(req.body)
         res.json(userData);
     });
 
     var comparisonUserTotalScore = 0;
-
     var friendScores = [];
 
     app.post("/api/friends", function (req, res) {
@@ -17,19 +17,21 @@ module.exports = function (app) {
 
         console.log("Current user scores: " + currentUserScores);
 
-        // Determine the user's most compatible friend.
-        for (var i = 0; i < userData.length; i++) {
+        // Determine the user's most compatible friend/ if there are actually friends in the database
+        if (userData.length > 1) {
+            for (var i = 0; i < userData.length; i++) {
 
-            // Convert each user's results in to an array of numbers.
-            var comparisonUserScores = userData[i].scores;
+                // Convert each user's results in to an array of numbers.
+                var comparisonUserScores = userData[i].scores;
 
-            // Find total difference between current user and each user.
-            comparisonUserTotalScore = calculateUserCompatibilityScore(currentUserScores, comparisonUserScores);
+                // Find total difference between current user and each user.
+                comparisonUserTotalScore = calculateUserCompatibilityScore(currentUserScores, comparisonUserScores);
 
-            // Build up array of user compatibility scores.
-            friendScores.push(comparisonUserTotalScore);
+                // Build up array of user compatibility scores.
+                friendScores.push(comparisonUserTotalScore);
+            }
+
         }
-
         console.log("Array of friend scores: " + friendScores);
 
         var index = 0;
@@ -43,8 +45,8 @@ module.exports = function (app) {
             }
         }
 
-        // OMG we are getting a best friend.
-        console.log("Best friend name: " + userData[index].name);
+        // get match
+        // console.log("Best friend name: " + userData[index].name);
 
         // Send best friend as a response so we can display in modal.
         res.send(userData[index]);

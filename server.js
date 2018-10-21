@@ -19,8 +19,15 @@ app.use(bodyParser.json());
 // app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 // app.set("view engine", "handlebars");
 
+app.use(express.static("app/public"))
 
-htmlroute(app)
+// app.use('public', express.static(__dirname + "./app/public"));
+
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
+
+
+
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function() {
     // Log (server-side) when our server has started

@@ -34,12 +34,9 @@ $(function () {
                 photo: $("#photo").val(),
                 scores: [$("#Q1").val(), $("#Q2").val(), $("#Q3").val(), $("#Q4").val(), $("#Q5").val(), $("#Q6").val(), $("#Q7").val(), $("#Q8").val(), $("#Q9").val(), $("#Q10").val(),]
             }
-            // Grab the URL of the website
-            var currentURL = window.location.origin;
-            console.log(currentURL)
 
             // AJAX post the data to the friends API. 
-            $.post(currentURL + "/api/friends", userData,
+            $.post("/api/friends", userData,
                 function (data) {
                     // Grab the result from the AJAX post 
                     // Most compatible friend name.

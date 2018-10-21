@@ -20,11 +20,6 @@ var userData = [
         "scores":[3,3,3,3,3,3,3,3,3,3],
     },
     {
-        "name":"Doge",
-        "photo": "https://i.ytimg.com/vi/Yj7ja6BANLM/maxresdefault.jpg",
-        "scores":[3,3,3,3,3,3,3,3,3,3],
-    },
-    {
         "name":"Spongebob",
         "photo": "https://pmcvariety.files.wordpress.com/2016/05/spongebob-nickelodeon.jpg?w=1000&h=563&crop=1",
         "scores":[4,4,4,4,4,4,4,4,4,4],

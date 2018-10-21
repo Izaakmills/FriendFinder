@@ -2,6 +2,8 @@
 var userData = require("../data/friends");
 
 module.exports = function (app) {
+
+    // ******************************************** 
     app.get("/api/friends", function (req, res) {
         console.log(req.body)
         res.json(userData);
@@ -10,6 +12,7 @@ module.exports = function (app) {
     var comparisonUserTotalScore = 0;
     var friendScores = [];
 
+    // ********************************************
     app.post("/api/friends", function (req, res) {
 
         // Store current user scores in array.
@@ -17,12 +20,14 @@ module.exports = function (app) {
 
         console.log("Current user scores: " + currentUserScores);
 
-        // Determine the user's most compatible friend/ if there are actually friends in the database
-        if (userData.length > 1) {
+        // Determine the user's most compatible friend, if there are actually friends in the database
+        console.log("number of friends in DB: " + userData.length)
+
             for (var i = 0; i < userData.length; i++) {
 
                 // Convert each user's results in to an array of numbers.
                 var comparisonUserScores = userData[i].scores;
+                console.log("comparison user score is :" + userData[i].score)
 
                 // Find total difference between current user and each user.
                 comparisonUserTotalScore = calculateUserCompatibilityScore(currentUserScores, comparisonUserScores);
@@ -30,8 +35,8 @@ module.exports = function (app) {
                 // Build up array of user compatibility scores.
                 friendScores.push(comparisonUserTotalScore);
             }
+ 
 
-        }
         console.log("Array of friend scores: " + friendScores);
 
         var index = 0;
@@ -46,31 +51,36 @@ module.exports = function (app) {
         }
 
         // get match
-        // console.log("Best friend name: " + userData[index].name);
+        console.log("Best friend name: " + userData[index].name);
 
         // Send best friend as a response so we can display in modal.
         res.send(userData[index]);
 
-        // Push new user to user array.
-        userData.push(req.body);
+        // Push new user to datbase
+        if (userData.length !== 1) {
+            userData.push(req.body)
+        }
+
+        console.log("number of friends in DB now: " + userData.length)
 
     });
-};
+    // };
 
-var totalDifference = 0;
+    var totalDifference = 0;
 
-// Find total difference between current user and another user.
-function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores) {
+    // Find total difference between current user and another user.
+    function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores) {
 
-    // Reset the total difference counter each time function called.
-    totalDifference = 0;
+        // Reset the total difference counter each time function called.
+        totalDifference = 0;
 
-    for (var i = 0; i < currentUserScores.length; i++) {
+        for (var i = 0; i < currentUserScores.length; i++) {
 
-        totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
-    }
+            totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
+        }
 
-    console.log("Final total difference for friend: " + totalDifference);
+        console.log("Final total difference for friend: " + totalDifference);
 
-    return totalDifference;
-};
+        return totalDifference;
+    };
+}

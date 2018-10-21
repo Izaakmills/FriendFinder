@@ -42,7 +42,7 @@ $(function () {
                     // Grab the result from the AJAX post 
                     // Most compatible friend name.
                     $("#matchName").text(data.name);
-                    // Most compatible friend photo.
+                    // Most compatible friend photo.      
                     $('#matchImg').attr("src", data.photo);
                     // Show the modal with the best match.
                     $("#resultsModal").modal('toggle');

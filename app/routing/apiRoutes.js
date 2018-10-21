@@ -1,5 +1,6 @@
 
 let userData = require("../data/friends");
+let _ = require('lodash');
 
 module.exports = function (app) {
 
@@ -17,8 +18,8 @@ module.exports = function (app) {
 
         // Store current user scores in array.
         let curScores = req.body.scores;
-        let curScores2 = curScores.map((num)=>{return parseInt(num)})
-        let currentUserScores = curScores2.reduce((a,b)=>{return a + b})
+        let curScores2 = curScores.map((num) => { return parseInt(num) })
+        let currentUserScores = curScores2.reduce((a, b) => { return a + b })
 
         console.log("line 22 : Current user scores: " + currentUserScores);
 
@@ -46,7 +47,7 @@ module.exports = function (app) {
 
         //get index of user that score is lowest from useData array
         for (let i = 0; i < friendScores.length; i++) {
-            console.log("Value of item in array: "+ friendScores[i]);
+            console.log("Value of item in array: " + friendScores[i]);
             if (friendScores[i] < value) {
                 value = friendScores[i];
                 index = i;
@@ -74,39 +75,56 @@ module.exports = function (app) {
     app.post("/api/friends", function (req, res) {
 
         // Store current user scores in array then convert to a single total sum
+        let smallest = 1000
+        let match = ""
         let curScores = req.body.scores;
-        let curScores2 = curScores.map((num)=>{return parseInt(num)})
-        let currentUserScores = curScores2.reduce((a,b)=>{return a + b})
+        let curScores2 = curScores.map((num) => { return parseInt(num) })
+        let currentUserScore = curScores2.reduce((a, b) => { return a + b }, 0)
 
-        console.log(`\n${req.body.name}'s score is ${currentUserScores}`);
+        console.log(`\n${req.body.name}'s score is ${currentUserScore}`);
 
-        userData.forEach((user)=>{
+
+        userData.forEach((user) => {
             let userScores = user.scores
             let userName = user.name
-            let userPartialScores = userScores.map((num)=>{return parseInt(num)})
-            let userTotalScore = userPartialScores.reduce((a,b)=>{return a + b})
+            let userPartialScores = userScores.map((num) => { return parseInt(num) })
+            let userTotalScore = userPartialScores.reduce((a, b) => { return a + b }, 0)
+            // loops through each user and stores whoever has the smallest difference in smallest variable
+            if (userTotalScore < smallest) {
+                userData.indexOf()
+                smallest = userTotalScore
+                match = userName
+                pic = user.photo
+            }
 
-            console.log(`\n${userName}'s score is ${userTotalScore}`)
+        // calcArray.push({
+        //     "name": userName,
+        //     "difference": Math.abs(userTotalScore - currentUserScore)
+        // })
 
-
-        })
-
-        res.send(userData[1])
+        // console.log(`\n${userName}'s score is ${userTotalScore}`)
     })
-        
-    // Find total difference between current user and another user.
-    function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores) {
+    console.log(`You should be best friends with ${match}` )
 
-        // Reset the total difference counter each time function called.
-        totalDifference = 0;
+    // Push new user to database
+    userData.push(req.body)
 
-        for (var i = 0; i < currentUserScores.length; i++) {
+    res.send(userData[])
+})
 
-            totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
-        }
+// Find total difference between current user and another user.
+function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores) {
 
-        console.log("Final total difference for friend: " + totalDifference);
+    // Reset the total difference counter each time function called.
+    totalDifference = 0;
 
-        return totalDifference;
-    };
+    for (var i = 0; i < currentUserScores.length; i++) {
+
+        totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
+    }
+
+    console.log("Final total difference for friend: " + totalDifference);
+
+    return totalDifference;
+};
 }

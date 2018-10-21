@@ -10,9 +10,6 @@ module.exports = function (app) {
         res.json(userData);
     });
 
-    let comparisonUserTotalScore = 0;
-    let friendScores = [];
-
     // New Post Section
 
     app.post("/api/friends", function (req, res) {

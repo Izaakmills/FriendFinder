@@ -56,19 +56,4 @@ module.exports = function (app) {
         res.send(userData[uIndex])
     })
 
-    // Find total difference between current user and another user.
-    function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores) {
-
-        // Reset the total difference counter each time function called.
-        totalDifference = 0;
-
-        for (var i = 0; i < currentUserScores.length; i++) {
-
-            totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
-        }
-
-        console.log("Final total difference for friend: " + totalDifference);
-
-        return totalDifference;
-    };
 }
